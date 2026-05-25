@@ -27,8 +27,8 @@ function httpsRequest(method, hostname, urlPath, headers, body) {
       let data = '';
       res.on('data', chunk => data += chunk);
       res.on('end', () => {
-        try { resolve(JSON.parse(data)); }
-        catch(e) { resolve({ error: data }); }
+        try { resolve({ status: res.statusCode, body: JSON.parse(data) }); }
+        catch(e) { resolve({ status: res.statusCode, body: { error: data } }); }
       });
     });
     req.on('error', reject);
@@ -48,9 +48,7 @@ function readBody(req) {
 const server = http.createServer(async (req, res) => {
   setCORS(res);
 
-  if (req.method === 'OPTIONS') {
-    res.writeHead(204); res.end(); return;
-  }
+  if (req.method === 'OPTIONS') { res.writeHead(204); res.end(); return; }
 
   if (req.method === 'GET' && (req.url === '/' || req.url === '')) {
     const html = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
@@ -63,11 +61,16 @@ const server = http.createServer(async (req, res) => {
       const body = await readBody(req);
       const { prompt } = JSON.parse(body);
 
-      const prediction = await httpsRequest('POST',
+      console.log('Starting prediction...');
+      console.log('Token present:', !!REPLICATE_TOKEN);
+
+      // Use the standard predictions endpoint with version
+      const startResult = await httpsRequest('POST',
         'api.replicate.com',
-        '/v1/models/black-forest-labs/flux-schnell/predictions',
+        '/v1/predictions',
         { 'Authorization': `Bearer ${REPLICATE_TOKEN}` },
         {
+          version: 'black-forest-labs/flux-schnell',
           input: {
             prompt,
             go_fast: true,
@@ -80,7 +83,10 @@ const server = http.createServer(async (req, res) => {
         }
       );
 
-      console.log('Prediction:', prediction.id, prediction.status);
+      console.log('Start status:', startResult.status);
+      console.log('Start body:', JSON.stringify(startResult.body).slice(0, 300));
+
+      const prediction = startResult.body;
       if (prediction.error) throw new Error(prediction.error);
 
       if (prediction.output && prediction.output[0]) {
@@ -89,16 +95,20 @@ const server = http.createServer(async (req, res) => {
       }
 
       const predId = prediction.id;
+      if (!predId) throw new Error('No prediction ID returned: ' + JSON.stringify(prediction));
+
       let attempts = 0;
       while (attempts < 60) {
         await new Promise(r => setTimeout(r, 2500));
-        const poll = await httpsRequest('GET',
+        const pollResult = await httpsRequest('GET',
           'api.replicate.com',
           `/v1/predictions/${predId}`,
           { 'Authorization': `Bearer ${REPLICATE_TOKEN}` },
           null
         );
-        console.log('Poll:', poll.status);
+        const poll = pollResult.body;
+        console.log('Poll status:', poll.status, 'HTTP:', pollResult.status);
+
         if (poll.status === 'succeeded' && poll.output && poll.output[0]) {
           res.writeHead(200, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify({ imageUrl: poll.output[0] })); return;
