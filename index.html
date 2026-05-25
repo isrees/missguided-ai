@@ -7,314 +7,101 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'DM Sans',sans-serif; background:#fff; height:100vh; display:flex; flex-direction:column; overflow:hidden; }
 
-body {
-  font-family:'DM Sans',sans-serif;
-  background:#fff;
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  overflow:hidden;
-}
-
-/* TICKER */
 .topbar { background:#FF2D78; padding:8px 0; overflow:hidden; flex-shrink:0; }
-.ticker-track {
-  display:flex; white-space:nowrap;
-  animation:scroll 22s linear infinite; width:max-content;
-}
-.ticker-track span {
-  font-size:10px; font-weight:700; letter-spacing:2.5px;
-  text-transform:uppercase; color:white; padding:0 28px;
-}
+.ticker-track { display:flex; white-space:nowrap; animation:scroll 22s linear infinite; width:max-content; }
+.ticker-track span { font-size:10px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:white; padding:0 28px; }
 @keyframes scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-/* NAV */
-.nav {
-  background:#fff; border-bottom:1.5px solid #F0F0F0;
-  padding:0 28px; height:52px;
-  display:flex; align-items:center; justify-content:space-between;
-  flex-shrink:0;
-}
+.nav { background:#fff; border-bottom:1.5px solid #F0F0F0; padding:0 28px; height:52px; display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
 .logo { font-family:'Bebas Neue',sans-serif; font-size:25px; letter-spacing:3px; color:#111; }
 .logo em { color:#FF2D78; font-style:normal; }
 .nav-right { display:flex; align-items:center; gap:10px; }
-.badge {
-  background:#FFF0F5; color:#FF2D78;
-  font-size:10px; font-weight:700; letter-spacing:1.5px;
-  text-transform:uppercase; padding:5px 12px; border-radius:100px;
-}
+.badge { background:#FFF0F5; color:#FF2D78; font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:5px 12px; border-radius:100px; }
 .by { font-size:11px; color:#CCC; letter-spacing:1px; text-transform:uppercase; }
 
-/* MAIN 3-COL */
-.main {
-  flex:1; display:grid;
-  grid-template-columns:300px 1fr 300px;
-  overflow:hidden;
-}
+.main { flex:1; display:grid; grid-template-columns:280px 1fr 300px; overflow:hidden; }
 
-/* ── COL 1 ── */
-.col-left {
-  border-right:1.5px solid #F0F0F0;
-  padding:18px 20px;
-  display:flex; flex-direction:column; gap:12px;
-  overflow-y:auto;
-  overflow-x:hidden;
-}
-
-/* Scrollbar styling */
+/* LEFT */
+.col-left { border-right:1.5px solid #F0F0F0; padding:20px; display:flex; flex-direction:column; gap:14px; overflow-y:auto; }
 .col-left::-webkit-scrollbar { width:3px; }
-.col-left::-webkit-scrollbar-track { background:transparent; }
 .col-left::-webkit-scrollbar-thumb { background:#F0F0F0; border-radius:10px; }
 
-.col-label {
-  font-size:9px; font-weight:700; letter-spacing:2.5px;
-  text-transform:uppercase; color:#BBBBBB;
-}
+.col-label { font-size:9px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:#BBBBBB; }
 
-/* GARMENT GRID */
-.garment-grid {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-}
+.garment-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
 
-.garment-slot {
-  border:2px dashed #EBEBEB;
-  border-radius:12px;
-  background:#FAFAFA;
-  aspect-ratio:2/3;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:5px;
-  cursor:pointer;
-  transition:all 0.2s;
-  position:relative;
-  overflow:hidden;
-}
+.garment-slot { border:2px dashed #EBEBEB; border-radius:12px; background:#FAFAFA; aspect-ratio:2/3; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; cursor:pointer; transition:all 0.2s; position:relative; overflow:hidden; }
 .garment-slot:hover { border-color:#FF2D78; background:#FFF5F9; }
-.garment-slot input {
-  position:absolute; inset:0; opacity:0;
-  cursor:pointer; width:100%; height:100%;
-}
+.garment-slot input { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
 .slot-icon { font-size:22px; }
-.slot-label {
-  font-size:9px; font-weight:700;
-  letter-spacing:1.5px; text-transform:uppercase;
-  color:#CCCCCC; text-align:center;
-}
+.slot-label { font-size:9px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#CCCCCC; text-align:center; }
 .slot-label.pink { color:#FF2D78; }
-
-/* Filled slot */
-.garment-slot.filled .slot-icon,
-.garment-slot.filled .slot-label { display:none; }
-.garment-slot.filled img {
-  position:absolute; inset:0;
-  width:100%; height:100%; object-fit:cover;
-}
-.slot-remove {
-  position:absolute; top:5px; right:5px;
-  width:20px; height:20px;
-  background:rgba(255,255,255,0.9);
-  border:none; border-radius:50%;
-  font-size:11px; cursor:pointer;
-  display:none; align-items:center; justify-content:center;
-  color:#FF2D78; font-weight:700; z-index:2;
-}
+.garment-slot.filled .slot-icon, .garment-slot.filled .slot-label { display:none; }
+.garment-slot.filled img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.slot-remove { position:absolute; top:5px; right:5px; width:20px; height:20px; background:rgba(255,255,255,0.9); border:none; border-radius:50%; font-size:11px; cursor:pointer; display:none; align-items:center; justify-content:center; color:#FF2D78; font-weight:700; z-index:2; }
 .garment-slot.filled:hover .slot-remove { display:flex; }
 
-/* Add more slot */
-.add-slot {
-  border:2px dashed #F0F0F0;
-  border-radius:12px;
-  background:#fff;
-  aspect-ratio:3/4;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:5px;
-  cursor:pointer;
-  transition:all 0.2s;
-  color:#CCCCCC;
-  font-size:22px;
-}
-.add-slot:hover { border-color:#FF2D78; color:#FF2D78; }
-
-/* PILLS */
-.pills { display:flex; flex-wrap:wrap; gap:6px; }
-.pill {
-  padding:5px 12px; border-radius:100px;
-  font-size:11px; font-weight:600;
-  border:1.5px solid #EBEBEB;
-  cursor:pointer; transition:all 0.15s;
-  background:#fff; color:#666; user-select:none;
-}
-.pill:hover { border-color:#FF2D78; color:#FF2D78; }
-.pill.on { background:#FF2D78; border-color:#FF2D78; color:#fff; }
-
-.garment-count {
-  font-size:11px; color:#999;
-  text-align:center; font-weight:500;
-}
+.garment-count { font-size:11px; color:#999; text-align:center; font-weight:500; }
 .garment-count strong { color:#FF2D78; }
 
-.btn-gen {
-  width:100%; padding:14px;
-  background:#FF2D78; color:#fff;
-  font-family:'Bebas Neue',sans-serif;
-  font-size:19px; letter-spacing:3px;
-  border:none; border-radius:12px;
-  cursor:pointer; transition:all 0.2s; flex-shrink:0;
-  margin-top:4px;
-}
-.btn-gen:hover:not(:disabled) {
-  background:#E0005F;
-  box-shadow:0 6px 20px rgba(255,45,120,0.3);
-  transform:translateY(-1px);
-}
+.btn-gen { width:100%; padding:15px; background:#FF2D78; color:#fff; font-family:'Bebas Neue',sans-serif; font-size:20px; letter-spacing:3px; border:none; border-radius:12px; cursor:pointer; transition:all 0.2s; margin-top:4px; }
+.btn-gen:hover:not(:disabled) { background:#E0005F; box-shadow:0 6px 20px rgba(255,45,120,0.3); transform:translateY(-1px); }
 .btn-gen:disabled { opacity:0.4; pointer-events:none; }
 
-/* ── COL 2: IMAGE ── */
-.col-image {
-  background:#F8F8F8;
-  display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
-  position:relative; overflow:hidden;
-}
-
-.image-empty {
-  display:flex; flex-direction:column;
-  align-items:center; gap:10px; text-align:center;
-}
+/* MIDDLE */
+.col-image { background:#F8F8F8; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+.image-empty { display:flex; flex-direction:column; align-items:center; gap:10px; text-align:center; }
 .image-empty .big { font-size:52px; opacity:0.2; }
 .image-empty p { font-size:12px; color:#BBBBBB; line-height:1.6; }
-
 .image-result { width:100%; height:100%; position:relative; display:none; }
 .image-result img { width:100%; height:100%; object-fit:cover; display:block; }
-
-.img-overlay {
-  position:absolute; bottom:0; left:0; right:0;
-  background:linear-gradient(transparent, rgba(0,0,0,0.75));
-  padding:40px 20px 20px;
-  display:none;
-}
-.img-headline {
-  font-family:'Bebas Neue',sans-serif;
-  font-size:26px; letter-spacing:2px;
-  color:#fff; line-height:1; margin-bottom:5px;
-}
+.img-overlay { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent, rgba(0,0,0,0.75)); padding:40px 20px 20px; display:none; }
+.img-headline { font-family:'Bebas Neue',sans-serif; font-size:26px; letter-spacing:2px; color:#fff; line-height:1; margin-bottom:5px; }
 .img-headline em { color:#FF2D78; font-style:normal; }
 .img-caption { font-size:11px; color:rgba(255,255,255,0.82); line-height:1.5; }
 
-/* PROGRESS */
-.progress-overlay {
-  position:absolute; inset:0;
-  background:rgba(255,255,255,0.94);
-  display:none; flex-direction:column;
-  align-items:center; justify-content:center; gap:14px;
-  backdrop-filter:blur(6px);
-}
+.progress-overlay { position:absolute; inset:0; background:rgba(255,255,255,0.94); display:none; flex-direction:column; align-items:center; justify-content:center; gap:14px; backdrop-filter:blur(6px); }
 .progress-overlay.show { display:flex; }
-.progress-bar-wrap {
-  width:220px; height:3px;
-  background:#EBEBEB; border-radius:100px; overflow:hidden;
-}
-.progress-bar {
-  height:100%; background:#FF2D78; border-radius:100px;
-  width:0%; transition:width 0.5s ease;
-}
-.progress-step {
-  font-size:11px; color:#AAAAAA; letter-spacing:1.5px;
-  text-transform:uppercase; text-align:center;
-}
+.progress-bar-wrap { width:220px; height:3px; background:#EBEBEB; border-radius:100px; overflow:hidden; }
+.progress-bar { height:100%; background:#FF2D78; border-radius:100px; width:0%; transition:width 0.5s ease; }
+.progress-step { font-size:11px; color:#AAAAAA; letter-spacing:1.5px; text-transform:uppercase; text-align:center; }
 .progress-pct { font-family:'Bebas Neue',sans-serif; font-size:42px; color:#111; letter-spacing:2px; }
 
-/* ── COL 3 ── */
-.col-right {
-  border-left:1.5px solid #F0F0F0;
-  padding:18px 20px; background:#FFFBFD;
-  display:flex; flex-direction:column; gap:10px;
-  overflow:hidden;
-}
-
-.copy-empty {
-  flex:1; display:flex; flex-direction:column;
-  align-items:center; justify-content:center; gap:8px; text-align:center;
-}
+/* RIGHT */
+.col-right { border-left:1.5px solid #F0F0F0; padding:20px; background:#FFFBFD; display:flex; flex-direction:column; gap:10px; overflow:hidden; }
+.copy-empty { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-align:center; }
 .copy-empty .icon { font-size:36px; opacity:0.2; }
 .copy-empty p { font-size:12px; color:#CCCCCC; line-height:1.6; }
-
 .copy-cards { display:flex; flex-direction:column; gap:9px; flex:1; overflow:hidden; }
-
-.card {
-  background:#fff; border:1.5px solid #F0F0F0;
-  border-radius:12px; padding:13px 15px;
-  animation:up 0.3s ease both;
-  display:flex; flex-direction:column;
-}
+.card { background:#fff; border:1.5px solid #F0F0F0; border-radius:12px; padding:13px 15px; animation:up 0.3s ease both; display:flex; flex-direction:column; }
 .card:nth-child(1){animation-delay:0.05s;}
 .card:nth-child(2){animation-delay:0.15s; flex:1;}
 .card:nth-child(3){animation-delay:0.25s;}
-@keyframes up {
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1;transform:translateY(0)}
-}
-.card-top {
-  display:flex; justify-content:space-between;
-  align-items:center; margin-bottom:7px;
-}
-.card-tag {
-  font-size:9px; font-weight:700;
-  letter-spacing:2px; text-transform:uppercase; color:#FF2D78;
-}
-.cp {
-  font-size:10px; font-weight:600; color:#BBBBBB;
-  background:none; border:1.5px solid #EBEBEB;
-  border-radius:6px; padding:3px 9px; cursor:pointer; transition:all 0.15s;
-}
+@keyframes up { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+.card-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:7px; }
+.card-tag { font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#FF2D78; }
+.cp { font-size:10px; font-weight:600; color:#BBBBBB; background:none; border:1.5px solid #EBEBEB; border-radius:6px; padding:3px 9px; cursor:pointer; transition:all 0.15s; }
 .cp:hover { color:#FF2D78; border-color:#FF2D78; }
 .cp.done { color:#FF2D78; border-color:#FF2D78; background:#FFF0F5; }
-
-.hl-text {
-  font-family:'Bebas Neue',sans-serif;
-  font-size:24px; letter-spacing:2px; line-height:1.05; color:#111;
-}
+.hl-text { font-family:'Bebas Neue',sans-serif; font-size:24px; letter-spacing:2px; line-height:1.05; color:#111; }
 .hl-text em { color:#FF2D78; font-style:normal; }
 .cap-text { font-size:12px; line-height:1.75; color:#333; white-space:pre-line; flex:1; overflow:auto; }
 .hash-text { font-size:11px; line-height:1.8; color:#FF2D78; font-weight:500; }
-
-.btn-dl {
-  width:100%; padding:12px;
-  background:#111; color:#fff;
-  font-family:'Bebas Neue',sans-serif;
-  font-size:16px; letter-spacing:2px;
-  border:none; border-radius:10px;
-  cursor:pointer; transition:all 0.2s; flex-shrink:0;
-  display:none;
-}
+.btn-dl { width:100%; padding:12px; background:#111; color:#fff; font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:2px; border:none; border-radius:10px; cursor:pointer; transition:all 0.2s; flex-shrink:0; display:none; }
 .btn-dl:hover { background:#333; }
 .btn-dl.show { display:block; }
 
-/* DOTS */
 .dots { display:inline-flex; gap:5px; align-items:center; }
-.dots span {
-  width:6px; height:6px; background:#fff;
-  border-radius:50%; animation:blink 1.2s infinite;
-}
+.dots span { width:6px; height:6px; background:#fff; border-radius:50%; animation:blink 1.2s infinite; }
 .dots span:nth-child(2){animation-delay:0.2s}
 .dots span:nth-child(3){animation-delay:0.4s}
-@keyframes blink {
-  0%,80%,100%{opacity:0.3;transform:scale(0.7)}
-  40%{opacity:1;transform:scale(1)}
-}
+@keyframes blink { 0%,80%,100%{opacity:0.3;transform:scale(0.7)} 40%{opacity:1;transform:scale(1)} }
 </style>
 </head>
 <body>
 
-<!-- TICKER -->
 <div class="topbar">
   <div class="ticker-track">
     <span>✦ MISSGUIDED BRAND AI</span><span>✦ SUMWON STUDIOS</span>
@@ -325,7 +112,6 @@ body {
   </div>
 </div>
 
-<!-- NAV -->
 <div class="nav">
   <div class="logo">MISS<em>AI</em></div>
   <div class="nav-right">
@@ -334,43 +120,20 @@ body {
   </div>
 </div>
 
-<!-- MAIN -->
 <div class="main">
 
-  <!-- COL 1 -->
   <div class="col-left">
-    <div class="col-label">01 — Upload Garments</div>
-
-    <div class="garment-grid" id="garmentGrid">
-      <!-- Slots injected by JS -->
-    </div>
-
-    <div class="garment-count" id="garmentCount">
-      add up to <strong>4 garments</strong> — top, bottom, dress, accessories
-    </div>
-
-    <div class="col-label">02 — Select Vibe</div>
-    <div class="pills">
-      <div class="pill on" onclick="this.classList.toggle('on')">wag era ✈️</div>
-      <div class="pill" onclick="this.classList.toggle('on')">going out 🔥</div>
-      <div class="pill" onclick="this.classList.toggle('on')">holiday 🌴</div>
-      <div class="pill" onclick="this.classList.toggle('on')">it girl 💋</div>
-      <div class="pill" onclick="this.classList.toggle('on')">baddie 🤌</div>
-      <div class="pill" onclick="this.classList.toggle('on')">festival 🎪</div>
-    </div>
-
-    <button class="btn-gen" id="btnGen" disabled onclick="runPipeline()">
-      CREATE THE LOOK ✦
-    </button>
+    <div class="col-label">Upload Garments</div>
+    <div class="garment-grid" id="garmentGrid"></div>
+    <div class="garment-count" id="garmentCount">add up to <strong>4 garments</strong></div>
+    <button class="btn-gen" id="btnGen" disabled onclick="runPipeline()">CREATE THE LOOK ✦</button>
   </div>
 
-  <!-- COL 2 -->
   <div class="col-image">
     <div class="image-empty" id="imageEmpty">
       <div class="big">✦</div>
       <p>upload garments<br>and hit create x</p>
     </div>
-
     <div class="image-result" id="imageResult">
       <img id="generatedImg" src="" alt="styled look" />
       <div class="img-overlay" id="imgOverlay">
@@ -378,114 +141,107 @@ body {
         <div class="img-caption" id="imgCaption"></div>
       </div>
     </div>
-
     <div class="progress-overlay" id="progressOverlay">
       <div class="progress-pct" id="progressPct">0%</div>
-      <div class="progress-bar-wrap">
-        <div class="progress-bar" id="progressBar"></div>
-      </div>
-      <div class="progress-step" id="progressStep">reading garments</div>
+      <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
+      <div class="progress-step" id="progressStep">creating the look...</div>
     </div>
   </div>
 
-  <!-- COL 3 -->
   <div class="col-right">
-    <div class="col-label">03 — Instagram Copy</div>
-
+    <div class="col-label">Instagram Copy</div>
     <div class="copy-empty" id="copyEmpty">
       <div class="icon">✍️</div>
       <p>caption & hashtags<br>appear here x</p>
     </div>
-
     <div class="copy-cards" id="copyCards" style="display:none">
       <div class="card">
-        <div class="card-top">
-          <div class="card-tag">Headline</div>
-          <button class="cp" id="cpHL" onclick="cp('cpHL','hlRaw')">copy</button>
-        </div>
+        <div class="card-top"><div class="card-tag">Headline</div><button class="cp" id="cpHL" onclick="cp('cpHL','hlRaw')">copy</button></div>
         <div class="hl-text" id="hlText"></div>
       </div>
       <div class="card">
-        <div class="card-top">
-          <div class="card-tag">Caption</div>
-          <button class="cp" id="cpCap" onclick="cp('cpCap','capRaw')">copy</button>
-        </div>
+        <div class="card-top"><div class="card-tag">Caption</div><button class="cp" id="cpCap" onclick="cp('cpCap','capRaw')">copy</button></div>
         <div class="cap-text" id="capText"></div>
       </div>
       <div class="card">
-        <div class="card-top">
-          <div class="card-tag">Hashtags</div>
-          <button class="cp" id="cpHash" onclick="cp('cpHash','hashRaw')">copy</button>
-        </div>
+        <div class="card-top"><div class="card-tag">Hashtags</div><button class="cp" id="cpHash" onclick="cp('cpHash','hashRaw')">copy</button></div>
         <div class="hash-text" id="hashText"></div>
       </div>
     </div>
-
     <button class="btn-dl" id="btnDl" onclick="downloadImage()">↓ DOWNLOAD POST</button>
   </div>
 
 </div>
 
 <script>
-const REPLICATE_TOKEN = 'r8_OVcJvDoCUQtn7C9d0TcFST72Okw41gY1dDK99';
 const MAX_SLOTS = 4;
 const store = { hlRaw:'', capRaw:'', hashRaw:'' };
-let garments = []; // { base64, dataUrl, name }
+let garments = [];
 let generatedImageUrl = null;
 
-// ── BUILD SLOTS ──
+// Missguided brand DNA — baked in, no API needed
+const VIBES = [
+  'at a football stadium wearing oversized sunglasses',
+  'stepping out of a luxury car at night',
+  'on a rooftop party at golden hour',
+  'at a summer holiday beach bar',
+  'walking through a vibrant urban street'
+];
+
+const CAPTIONS = [
+  ["she came to look good, not watch the game 🔥", "shop the look x"],
+  ["wag life is the life for me 🤌✈️", "she won x"],
+  ["we couldn't care less who wins btw 💋", "we just came to look hot x"],
+  ["it's giving holiday girlie and we're here for it 🌴", "pack your bags x"],
+  ["looking hot > everything else 🔥", "that's it, that's the caption x"]
+];
+
+const HEADLINES = [
+  "SHE CAME TO SLAY",
+  "HOT GIRL SUMMER",
+  "WAG LIFE ONLY",
+  "LOOK HOT WIN",
+  "IT GIRL ERA"
+];
+
+const HASHTAGS = [
+  "#missguided #ootd #wagstyle #footballfashion #girlswholookgood #outfitinspo #streetstyle #hotgirlsummer",
+  "#missguided #ootd #waglife #luxurygirl #nightout #outfitcheck #fashioninspo #itgirl",
+  "#missguided #ootd #partylook #girlsnight #outfitinspo #hotgirlcheck #fashiongirl #lookbook",
+  "#missguided #ootd #holidaystyle #beachgirl #summerfit #vacationmode #fashionblogger #styleinspo",
+  "#missguided #ootd #streetstyle #urbanfashion #outfitcheck #dailylook #fashioninspo #girlboss"
+];
+
 function buildSlots() {
   const grid = document.getElementById('garmentGrid');
   grid.innerHTML = '';
-
   garments.forEach((g, i) => {
     const slot = document.createElement('div');
     slot.className = 'garment-slot filled';
-    slot.innerHTML = `
-      <img src="${g.dataUrl}" />
-      <button class="slot-remove" onclick="removeGarment(event,${i})">✕</button>
-    `;
+    slot.innerHTML = `<img src="${g.dataUrl}" /><button class="slot-remove" onclick="removeGarment(event,${i})">✕</button>`;
     grid.appendChild(slot);
   });
-
   if (garments.length < MAX_SLOTS) {
     const add = document.createElement('div');
     add.className = 'garment-slot';
-    add.innerHTML = `
-      <input type="file" accept="image/*" multiple onchange="handleFiles(event)" />
-      <div class="slot-icon">+</div>
-      <div class="slot-label pink">add garment</div>
-    `;
+    add.innerHTML = `<input type="file" accept="image/*" multiple onchange="handleFiles(event)" /><div class="slot-icon">+</div><div class="slot-label pink">add garment</div>`;
     grid.appendChild(add);
   }
-
-  updateCount();
-  document.getElementById('btnGen').disabled = garments.length === 0;
-}
-
-function updateCount() {
   const n = garments.length;
-  const el = document.getElementById('garmentCount');
-  if (n === 0) {
-    el.innerHTML = 'add up to <strong>4 garments</strong> — top, bottom, dress, accessories';
-  } else {
-    el.innerHTML = `<strong>${n} garment${n>1?'s':''}</strong> added — hit create when ready`;
-  }
+  document.getElementById('garmentCount').innerHTML = n === 0
+    ? 'add up to <strong>4 garments</strong>'
+    : `<strong>${n} garment${n>1?'s':''}</strong> added — hit create`;
+  document.getElementById('btnGen').disabled = n === 0;
 }
 
 function handleFiles(e) {
-  const files = [...e.target.files];
-  files.forEach(f => { if (garments.length < MAX_SLOTS) loadFile(f); });
+  [...e.target.files].forEach(f => { if (garments.length < MAX_SLOTS) loadFile(f); });
 }
 
 function loadFile(file) {
   const reader = new FileReader();
   reader.onload = ev => {
-    garments.push({
-      base64: ev.target.result.split(',')[1],
-      dataUrl: ev.target.result,
-      name: file.name
-    });
+    garments.push({ dataUrl: ev.target.result });
     buildSlots();
   };
   reader.readAsDataURL(file);
@@ -497,48 +253,61 @@ function removeGarment(e, i) {
   buildSlots();
 }
 
-// ── PROGRESS ──
 function setProgress(pct, step) {
   document.getElementById('progressBar').style.width = pct + '%';
-  document.getElementById('progressPct').textContent  = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
   document.getElementById('progressStep').textContent = step;
 }
+
 function showProgress(show) {
   document.getElementById('progressOverlay').classList.toggle('show', show);
 }
 
-// ── PIPELINE ──
-async function runPipeline() {
-  const vibes = [...document.querySelectorAll('.pill.on')]
-    .map(p => p.textContent.trim()).join(', ') || 'going out';
+// Build Missguided-DNA image prompt — no AI needed
+function buildPrompt() {
+  const vibe = VIBES[Math.floor(Math.random() * VIBES.length)];
+  return `beautiful confident 25-year-old mixed-race woman with long dark wavy hair, wearing a complete Missguided fashion outfit — bold colours, crop top, mini skirt or mini dress, ${vibe}, oversized dark sunglasses, multiple handbags, attitude pose direct to camera, layered accessories, bright natural high-energy lighting, Missguided fashion brand aesthetic, ultra realistic fashion photography, 4k, full body shot, white sneakers or heels`;
+}
 
+function buildCopy() {
+  const idx = Math.floor(Math.random() * HEADLINES.length);
+  const lines = CAPTIONS[idx];
+  return {
+    headline: HEADLINES[idx],
+    caption: lines.join('\n'),
+    hashtags: HASHTAGS[idx]
+  };
+}
+
+async function runPipeline() {
   const btn = document.getElementById('btnGen');
   btn.disabled = true;
   btn.innerHTML = '<span class="dots"><span></span><span></span><span></span></span>';
 
-  document.getElementById('imageEmpty').style.display  = 'none';
+  document.getElementById('imageEmpty').style.display = 'none';
   document.getElementById('imageResult').style.display = 'none';
-  document.getElementById('imgOverlay').style.display  = 'none';
-  document.getElementById('copyEmpty').style.display   = 'none';
-  document.getElementById('copyCards').style.display   = 'none';
+  document.getElementById('imgOverlay').style.display = 'none';
+  document.getElementById('copyEmpty').style.display = 'none';
+  document.getElementById('copyCards').style.display = 'none';
   document.getElementById('btnDl').classList.remove('show');
   showProgress(true);
 
   try {
-    setProgress(10, 'reading your garments...');
-    const analysis = await analyseGarments(vibes);
+    setProgress(20, 'building the look...');
+    const prompt = buildPrompt();
 
-    setProgress(30, 'styling the look...');
-    const imgUrl = await generateModelImage(analysis.imagePrompt);
+    setProgress(35, 'styling the model...');
+    const imgUrl = await generateImage(prompt);
     generatedImageUrl = imgUrl;
 
-    setProgress(88, 'writing the copy...');
+    setProgress(90, 'almost there...');
     document.getElementById('generatedImg').src = imgUrl;
     document.getElementById('imageResult').style.display = 'block';
 
-    renderCopy(analysis);
-    setProgress(100, 'done ✦');
+    const copy = buildCopy();
+    renderCopy(copy);
 
+    setProgress(100, 'done ✦');
     setTimeout(() => {
       showProgress(false);
       document.getElementById('imgOverlay').style.display = 'block';
@@ -548,80 +317,14 @@ async function runPipeline() {
   } catch(err) {
     showProgress(false);
     document.getElementById('imageEmpty').style.display = 'flex';
-    renderCopyError(err.message);
+    alert('Error: ' + err.message);
   }
 
   btn.disabled = false;
   btn.innerHTML = 'CREATE THE LOOK ✦';
 }
 
-// ── CLAUDE: ANALYSE ALL GARMENTS ──
-async function analyseGarments(vibes) {
-  const content = [];
-
-  // Add all garment images
-  garments.forEach((g, i) => {
-    content.push({ type:'text', text: `Garment ${i+1}:` });
-    content.push({
-      type:'image',
-      source:{ type:'base64', media_type:'image/jpeg', data: g.base64 }
-    });
-  });
-
-  const garmentCount = garments.length;
-  const outfitNote = garmentCount > 1
-    ? `The user has uploaded ${garmentCount} garments — style them ALL together as one complete outfit on the model.`
-    : `Style this single garment on the model, completing the look with Missguided-coded accessories and styling.`;
-
-  content.push({ type:'text', text: `
-You are the Missguided brand creative director. Study all garment photos above carefully.
-
-${outfitNote}
-
-VIBE: ${vibes}
-
-MISSGUIDED VISUAL DNA:
-- Model: 25-year-old mixed-race woman, olive/brown skin, long dark wavy hair, confident
-- Always: oversized dark sunglasses, attitude pose, direct camera gaze
-- Settings match vibe — stadium, rooftop, luxury car interior, holiday, party
-- Bright natural lighting, high energy — never moody or editorial
-- Styling: crop everything, mini everything, layered accessories, multiple bags
-- Colour world: bold saturated — hot pink, red, cobalt, neon, black
-
-COPY VOICE:
-- Lowercase, short punchy sentences, attitude first
-- Emoji: 🔥🤌💋✈️👀 — 2-3 max, end of sentence
-- Ends with x
-- Vocab: wag life, it's giving, era, btw, tf, lol
-- NEVER: luxurious, elevated, effortless, curated, empowering
-
-Return ONLY raw JSON (no markdown, no backticks):
-{
-  "outfitDescription": "brief description of all garments combined as one look",
-  "imagePrompt": "Flux prompt: beautiful confident 25-year-old mixed-race woman with long dark wavy hair, [describe EVERY garment in detail — colour, cut, silhouette], oversized dark sunglasses, [vibe-matched setting for: ${vibes}], attitude pose direct to camera, layered accessories, bright natural lighting, high energy fashion photography, Missguided aesthetic, ultra realistic, 4k, full body shot",
-  "headline": "3-5 word ALL CAPS attitude campaign headline based on the full look",
-  "caption": "Instagram caption in Missguided voice — 2-3 short sentences, lowercase, emoji, ends with x",
-  "hashtags": "8-10 hashtags relevant to the full outfit and vibe"
-}
-` });
-
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body: JSON.stringify({
-      model:"claude-sonnet-4-20250514",
-      max_tokens:800,
-      messages:[{ role:"user", content }]
-    })
-  });
-
-  const data = await res.json();
-  const raw  = data.content.map(b => b.text||'').join('').replace(/```json|```/g,'').trim();
-  return JSON.parse(raw);
-}
-
-// ── IMAGE GEN via local server ──
-async function generateModelImage(prompt) {
+async function generateImage(prompt) {
   const res = await fetch('/generate-image', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -630,40 +333,28 @@ async function generateModelImage(prompt) {
   const data = await res.json();
   if (data.error) throw new Error(data.error);
   if (data.imageUrl) return data.imageUrl;
-  throw new Error('No image returned from server');
+  throw new Error('No image returned');
 }
 
-function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
-
-// ── RENDER ──
 function renderCopy(r) {
-  store.hlRaw   = r.headline  || '';
-  store.capRaw  = r.caption   || '';
-  store.hashRaw = r.hashtags  || '';
+  store.hlRaw = r.headline;
+  store.capRaw = r.caption;
+  store.hashRaw = r.hashtags;
 
   const words = r.headline.split(' ');
-  const mid   = Math.floor(words.length / 2);
-  words[mid]  = `<em>${words[mid]}</em>`;
+  const mid = Math.floor(words.length / 2);
+  words[mid] = `<em>${words[mid]}</em>`;
 
-  document.getElementById('hlText').innerHTML    = words.join(' ');
+  document.getElementById('hlText').innerHTML = words.join(' ');
   document.getElementById('capText').textContent = r.caption;
   document.getElementById('hashText').textContent = r.hashtags;
   document.getElementById('imgHeadline').innerHTML = words.join(' ');
-  document.getElementById('imgCaption').textContent = r.caption;
+  document.getElementById('imgCaption').textContent = r.caption.split('\n')[0];
   document.getElementById('copyCards').style.display = 'flex';
-}
-
-function renderCopyError(msg) {
-  store.capRaw = "couldn't connect rn btw 👀 — try again x";
-  document.getElementById('hlText').innerHTML    = 'ERROR';
-  document.getElementById('capText').textContent = store.capRaw;
-  document.getElementById('hashText').textContent = '';
-  document.getElementById('copyCards').style.display = 'flex';
-  document.getElementById('copyEmpty').style.display = 'none';
 }
 
 function cp(btnId, key) {
-  navigator.clipboard.writeText(store[key]||'');
+  navigator.clipboard.writeText(store[key] || '');
   const btn = document.getElementById(btnId);
   btn.textContent = '✓ done';
   btn.classList.add('done');
@@ -679,7 +370,6 @@ function downloadImage() {
   a.click();
 }
 
-// Init
 buildSlots();
 </script>
 </body>
