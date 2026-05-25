@@ -622,7 +622,7 @@ Return ONLY raw JSON (no markdown, no backticks):
 
 // ── IMAGE GEN via local server ──
 async function generateModelImage(prompt) {
-  const res = await fetch('http://localhost:3000/generate-image', {
+  const res = await fetch('/generate-image', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ prompt })
