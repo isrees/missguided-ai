@@ -1,11 +1,11 @@
-const http = require('http');
+onst http = require('http');
 const https = require('https');
 const fs = require('fs');
 const path = require('path');
 const url = require('url');
 
 const PORT = 3000;
-const REPLICATE_TOKEN = 'r8_OVcJvDoCUQtn7C9d0TcFST72Okw41gY1dDK99';
+const REPLICATE_TOKEN = process.env.REPLICATE_TOKEN;
 const ANTHROPIC_KEY_PLACEHOLDER = 'YOUR_ANTHROPIC_KEY'; // not needed — app uses Anthropic API directly
 
 // ── CORS HEADERS ──
